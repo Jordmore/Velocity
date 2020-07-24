@@ -22,12 +22,7 @@
         android:title="@string/map"/>
 
     <item
-        android:id="@+id/nav_qr_code"
+        android:id="@+id/qr_codelibrary"
         android:icon="@drawable/ic_location_on_black_24dp"
-        android:title="QR Code"/>
-
-    <item
-        android:id="@+id/nav_camera"
-        android:icon="@drawable/ic_location_on_black_24dp"
-        android:title="Camera"/>
+        android:title="QR Code Library"/>
 </menu>
