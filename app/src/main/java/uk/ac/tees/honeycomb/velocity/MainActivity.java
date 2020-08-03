@@ -18,11 +18,10 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import uk.ac.tees.honeycomb.velocity.fragments.CameraFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.JourneyPlannerFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.MainFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.MapsFragment;
-import uk.ac.tees.honeycomb.velocity.fragments.QrCodeFragment;
+import uk.ac.tees.honeycomb.velocity.fragments.QRScannerFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.StopTimetableFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private final JourneyPlannerFragment journeyPlanner = new JourneyPlannerFragment();
     private final MainFragment main = new MainFragment();
     private final MapsFragment maps = new MapsFragment();
-    private final QrCodeFragment qrCode = new QrCodeFragment();
-    private final CameraFragment camera = new CameraFragment();
+    private final QRScannerFragment qr = new QRScannerFragment();
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -104,17 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     drawer.close();
                     return true;
                 case R.id.nav_qr_code:
-                    load(qrCode);
-                    drawer.close();
-                    return true;
-                case R.id.nav_camera:
-                    boolean val = requestCameraPermission();
-                    if(val == true)
-                    {
-                        load(camera);
-                        camera.setQrCodeFragment(qrCode);
-                        drawer.close();
-                    }
+                    load(qr);
                     return true;
                 default:
                     return false;

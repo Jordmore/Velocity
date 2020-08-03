@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/fragment_main">
 
     <fragment
@@ -19,6 +21,9 @@
         <action
             android:id="@+id/action_fragment_main_to_journeyPlannerFragment2"
             app:destination="@id/journeyPlannerFragment" />
+        <action
+            android:id="@+id/action_fragment_main_to_qrlibraryrFragment"
+            app:destination="@id/qrlibraryrFragment" />
     </fragment>
     <fragment
         android:id="@+id/stopTimetableFragment"
@@ -36,4 +41,9 @@
         android:id="@+id/journeyPlannerFragment"
         android:name="uk.ac.tees.honeycomb.velocity.fragments.JourneyPlannerFragment"
         android:label="JourneyPlannerFragment" />
+    <fragment
+        android:id="@+id/qrlibraryrFragment"
+        android:name="uk.ac.tees.honeycomb.velocity.fragments.QRScannerFragment"
+        android:label="QRLibraryrFragment"
+        tools:layout="@layout/fragment_qrlibrary" />
 </navigation>
