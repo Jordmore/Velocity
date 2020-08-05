@@ -67,6 +67,7 @@ dependencies {
 
     //play services
     //noinspection GradleCompatible
-    implementation 'com.google.android.gms:play-services-vision:20.1.0'
+    // google vision gradle
+    implementation 'com.google.android.gms:play-services-vision:15.0.2'
 
 }

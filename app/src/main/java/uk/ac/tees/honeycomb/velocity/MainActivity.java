@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.nav_qr_code:
                     load(qr);
+                    drawer.close();
                     return true;
                 default:
                     return false;
