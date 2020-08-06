@@ -1,7 +1,9 @@
 package uk.ac.tees.honeycomb.velocity.fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -38,9 +42,11 @@ public class QRCameraFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_scanner, container,false);
 
-cameraPreview = view.findViewById(R.id.cameraPreview);
-createCameraSource();
+     cameraPreview = view.findViewById(R.id.cameraPreview);
+        createCameraSource();
         return view;
+
+
     }
     private void createCameraSource()
     {
@@ -83,7 +89,8 @@ if(barcodes.size()>0){
 
     Intent intent = new Intent();
     intent.putExtra("barcode",barcodes.valueAt(0));
-
+    getActivity().setResult(CommonStatusCodes.SUCCESS, intent);
+    getActivity().finish();
 }
     }
 });
