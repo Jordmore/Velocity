@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     drawer.close();
                     return true;
                 default:
+                    
                     return false;
             }
         });
