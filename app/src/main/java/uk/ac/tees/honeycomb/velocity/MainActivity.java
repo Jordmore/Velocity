@@ -21,7 +21,8 @@ import com.google.android.material.navigation.NavigationView;
 import uk.ac.tees.honeycomb.velocity.fragments.JourneyPlannerFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.MainFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.MapsFragment;
-import uk.ac.tees.honeycomb.velocity.fragments.QRScannerFragment;
+import uk.ac.tees.honeycomb.velocity.fragments.QRCameraFragment;
+import uk.ac.tees.honeycomb.velocity.fragments.QRLibraryFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.StopTimetableFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private final JourneyPlannerFragment journeyPlanner = new JourneyPlannerFragment();
     private final MainFragment main = new MainFragment();
     private final MapsFragment maps = new MapsFragment();
-    private final QRScannerFragment qr = new QRScannerFragment();
+    private final QRLibraryFragment qr = new QRLibraryFragment();
+    private final QRCameraFragment qrcam = new QRCameraFragment();
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -103,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.nav_qr_code:
                     load(qr);
+                    drawer.close();
+                    return true;
+                case R.id.nav_qrcam:
+                    load(qrcam);
                     drawer.close();
                     return true;
                 default:

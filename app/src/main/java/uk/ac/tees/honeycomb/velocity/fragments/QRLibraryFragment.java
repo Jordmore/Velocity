@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import uk.ac.tees.honeycomb.velocity.R;
 import uk.ac.tees.honeycomb.velocity.behaviours.QRScanner;
 
-public class QRScannerFragment extends Fragment {
+public class QRLibraryFragment extends Fragment {
    private QRScanner behaviour;
 
- public QRScannerFragment(){
+ public QRLibraryFragment(){
      // Required empty public constructor
     }
 

@@ -77,7 +77,7 @@ public class BusStopTimetable implements Behaviour {
      * A reference to the Context this object was instantiated with.
      * @return The parent view's Context.
      */
-    private Context getViewContext(){
+    public Context getViewContext(){
         return parentView.getContext();
     }
 

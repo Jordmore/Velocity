@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_fragment_main_to_qrlibraryrFragment"
             app:destination="@id/qrlibraryrFragment" />
+        <action
+            android:id="@+id/action_fragment_main_to_QRCameraFragment"
+            app:destination="@id/QRCameraFragment" />
     </fragment>
     <fragment
         android:id="@+id/stopTimetableFragment"
@@ -43,7 +46,11 @@
         android:label="JourneyPlannerFragment" />
     <fragment
         android:id="@+id/qrlibraryrFragment"
-        android:name="uk.ac.tees.honeycomb.velocity.fragments.QRScannerFragment"
+        android:name="uk.ac.tees.honeycomb.velocity.fragments.QRLibraryFragment"
         android:label="QRLibraryrFragment"
         tools:layout="@layout/fragment_qrlibrary" />
+    <fragment
+        android:id="@+id/QRCameraFragment"
+        android:name="uk.ac.tees.honeycomb.velocity.fragments.QRCameraFragment"
+        android:label="QRCameraFragment" />
 </navigation>

@@ -70,4 +70,6 @@ dependencies {
     // google vision gradle
     implementation 'com.google.android.gms:play-services-vision:15.0.2'
 
+
+
 }
