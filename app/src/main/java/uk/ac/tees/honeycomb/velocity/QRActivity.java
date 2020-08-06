@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 
 import android.os.Bundle;
 
+import android.os.Parcelable;
+import android.text.format.DateUtils;
 import android.util.SparseArray;
 
 import android.view.SurfaceHolder;
@@ -34,11 +36,16 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 
 import java.io.IOException;
+import java.sql.SQLOutput;
+import java.util.Calendar;
+import java.util.Date;
+
+import uk.ac.tees.honeycomb.velocity.dataTransfer.Parsing;
+import uk.ac.tees.honeycomb.velocity.fragments.QRLibraryFragment;
 
 
-
-public class QRActivity extends AppCompatActivity {
-
+public class QRActivity extends AppCompatActivity  {
+Parsing fragmentCommunicator;
     SurfaceView cameraView;
 
     BarcodeDetector barcode;
@@ -159,6 +166,10 @@ public class QRActivity extends AppCompatActivity {
 
                     setResult(RESULT_OK, intent);
 
+                    fragmentCommunicator.passDataString("test");
+
+
+fragmentCommunicator.passDataDate((Date) Calendar.getInstance().getTime());
                     finish();
 
                 }
@@ -168,5 +179,7 @@ public class QRActivity extends AppCompatActivity {
         });
 
     }
+
+
 
 }
