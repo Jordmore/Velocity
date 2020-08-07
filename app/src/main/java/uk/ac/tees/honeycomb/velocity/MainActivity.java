@@ -1,6 +1,7 @@
 package uk.ac.tees.honeycomb.velocity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+
 import uk.ac.tees.honeycomb.velocity.fragments.JourneyPlannerFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.MainFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.MapsFragment;
@@ -25,7 +27,7 @@ import uk.ac.tees.honeycomb.velocity.fragments.QRCameraFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.QRLibraryFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.StopTimetableFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private final StopTimetableFragment busStop = new StopTimetableFragment();
     private final JourneyPlannerFragment journeyPlanner = new JourneyPlannerFragment();
@@ -145,5 +147,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
 }

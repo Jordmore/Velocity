@@ -12,16 +12,21 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;*/
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import java.util.Date;
 
 import uk.ac.tees.honeycomb.velocity.QRActivity;
 import uk.ac.tees.honeycomb.velocity.R;
-import uk.ac.tees.honeycomb.velocity.dataTransfer.Parsing;
+import uk.ac.tees.honeycomb.velocity.qrc.QRCode;
 
-public class QRScanner extends Fragment  implements Behaviour, Parsing {
+import static android.app.Activity.RESULT_OK;
+
+
+public class QRScanner extends AppCompatActivity implements Behaviour {
     public static final int PERMISSION_REQUEST = 200;
 
     public static final int REQUEST_CODE = 100;
@@ -37,53 +42,45 @@ public class QRScanner extends Fragment  implements Behaviour, Parsing {
 
 
 
+
     private void createListeners(View view) {
         Button openQR = parentView.findViewById(R.id.Scan);
+        Button refresh = parentView.findViewById(R.id.refresh);
         result =  parentView.findViewById(R.id.textView4);
        openQR.setOnClickListener((view1) -> open(view1));
 
+        refresh.setOnClickListener((view1) -> recieveData());
+    }
+
+
+
+    private void open(View view) {
+
+        Intent intent = new Intent(view.getContext(), QRActivity.class);
+        view.getContext().startActivity(intent);
+
+
+
 
 
     }
 
-    private void open(View view)
-    {
+    public void recieveData() {
+        QRCode qr =QRCode.instance();;
+        if (!qr.name.equals("CODE_BLANK")) {
+            result.setText(qr.name);
+            qr.name ="CODE_BLANK";
 
-            Intent intent = new Intent(view.getContext(), QRActivity.class);
-            view.getContext().startActivity(intent);
-
-
+            qr.image = null;
         }
-
-        private String getdata()
+        else
         {
-            if(!getArguments().equals("")) {
-                String strtext =getArguments().toString();
-                return strtext;
-            }
-            return "";
+//nohing
         }
-
-
-    @Override
-    public String passDataString(String name) {
-
-
-        return name;
     }
 
-    @Override
-    public Date passDataDate(Date date) {
-
-        return date;
-    }
-
-    @Override
-    public Bitmap passDataImage(Bitmap image) {
-
-        return image;
-    }
 }
+
 
 
 

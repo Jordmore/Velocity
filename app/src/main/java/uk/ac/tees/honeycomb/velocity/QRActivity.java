@@ -1,7 +1,5 @@
 package uk.ac.tees.honeycomb.velocity;
 
-import android.*;
-
 import android.Manifest;
 
 import android.content.Intent;
@@ -9,10 +7,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 
+
 import android.os.Bundle;
 
-import android.os.Parcelable;
-import android.text.format.DateUtils;
 import android.util.SparseArray;
 
 import android.view.SurfaceHolder;
@@ -36,16 +33,18 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 
 import java.io.IOException;
-import java.sql.SQLOutput;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-import uk.ac.tees.honeycomb.velocity.dataTransfer.Parsing;
-import uk.ac.tees.honeycomb.velocity.fragments.QRLibraryFragment;
+import uk.ac.tees.honeycomb.velocity.behaviours.QRScanner;
+import uk.ac.tees.honeycomb.velocity.qrc.QRCode;
 
 
-public class QRActivity extends AppCompatActivity  {
-Parsing fragmentCommunicator;
+public class QRActivity extends AppCompatActivity implements Serializable {
+
+
+
     SurfaceView cameraView;
 
     BarcodeDetector barcode;
@@ -54,6 +53,8 @@ Parsing fragmentCommunicator;
 
     SurfaceHolder holder;
 
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ Parsing fragmentCommunicator;
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_qr);
+
 
         cameraView = (SurfaceView) findViewById(R.id.cameraView);
 
@@ -73,6 +75,7 @@ Parsing fragmentCommunicator;
                 .setBarcodeFormats(Barcode.QR_CODE)
 
                 .build();
+
 
         if(!barcode.isOperational()){
 
@@ -166,10 +169,11 @@ Parsing fragmentCommunicator;
 
                     setResult(RESULT_OK, intent);
 
-                    fragmentCommunicator.passDataString("test");
+QRCode qr =QRCode.instance();;
+
+qr.setName("TEST");
 
 
-fragmentCommunicator.passDataDate((Date) Calendar.getInstance().getTime());
                     finish();
 
                 }
@@ -179,7 +183,5 @@ fragmentCommunicator.passDataDate((Date) Calendar.getInstance().getTime());
         });
 
     }
-
-
 
 }
