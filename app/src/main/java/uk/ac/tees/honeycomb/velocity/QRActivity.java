@@ -31,14 +31,11 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 
-
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
 
-import uk.ac.tees.honeycomb.velocity.behaviours.QRScanner;
-import uk.ac.tees.honeycomb.velocity.qrc.QRCode;
+
+import uk.ac.tees.honeycomb.velocity.qrc.QRCodeData;
 
 
 public class QRActivity extends AppCompatActivity implements Serializable {
@@ -169,9 +166,9 @@ public class QRActivity extends AppCompatActivity implements Serializable {
 
                     setResult(RESULT_OK, intent);
 
-QRCode qr =QRCode.instance();;
+QRCodeData qr =QRCodeData.instance();;
 
-qr.setName("TEST");
+qr.setRawJson(barcodes.valueAt(0).rawValue);
 
 
                     finish();
@@ -183,5 +180,8 @@ qr.setName("TEST");
         });
 
     }
+
+
+
 
 }

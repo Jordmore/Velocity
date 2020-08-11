@@ -4,25 +4,26 @@ import android.graphics.Bitmap;
 
 import java.util.Date;
 
-public  class QRCode {
+public  class QRCodeData {
 
 
-   protected  String name;
-   protected  Date start;
-    protected  Date expire;
-   protected Bitmap image;
-    private static QRCode qr = new QRCode( );
-    private QRCode()
+   private String name;
+   private Date start;
+    private Date expire;
+   private Bitmap image;
+   private String rawjson;
+    private static QRCodeData qr = new QRCodeData( );
+    private QRCodeData()
     {
         this.name = "CODE_BLANK";
         this.start = null;
         this.expire = null;
         this.image= null;
-
+        this.rawjson = "";
     }
 
 
-public static QRCode instance()
+public static QRCodeData instance()
 {
     return qr;
 }
@@ -32,6 +33,8 @@ public static QRCode instance()
     public void setName(String sname) {
        name = sname;
     }
+
+    public void setRawJson(String raw){rawjson = raw;}
 
     public void setStart(Date date)
     {
@@ -49,4 +52,7 @@ public static QRCode instance()
     public Date getExpire() { return expire;}
 
     public Bitmap getImage() {return image;}
+
+    public String getRawjson() {return rawjson;}
+
 }

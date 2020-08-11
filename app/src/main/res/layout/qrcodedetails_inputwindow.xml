@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"><![CDATA[
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="20dp">
-
-
-
-
-
-    ]]>
+    android:layout_height="match_parent">
 
     <TableRow
             android:layout_width="match_parent"
@@ -27,7 +19,8 @@
 
         <EditText
 
-            android:hint="Input Name of QRCode"
+            android:id="@+id/inputQRName"
+            android:hint="@string/input_name_of_qrcode"
             android:inputType="text" />
 
         </TableRow>
@@ -40,12 +33,13 @@
 
             <TextView
                 android:gravity="end"
-                android:text="Start Date of Ticket : " />
+                android:text="@string/start_date_of_ticket" />
 
-            <EditText
+        <EditText
 
-                android:hint="Input Start Date"
-                android:inputType="text" />
+            android:id="@+id/inputStartDate"
+            android:hint="@string/input_start_date"
+            android:inputType="datetime" />
 
         </TableRow>
 
@@ -61,8 +55,9 @@
 
         <EditText
 
-            android:hint="Input End Date"
-            android:inputType="text" />
+            android:id="@+id/inputEndDate"
+            android:hint="@string/input_end_date"
+            android:inputType="datetime" />
 
     </TableRow>
 
@@ -87,7 +82,7 @@
         android:orientation="horizontal" >
 
         <ImageView
-
+            android:id="@+id/qrimage"
             android:layout_width="187dp"
             android:layout_height="260dp"
             app:srcCompat="@drawable/ic_code_scanner_auto_focus_off" />
@@ -100,7 +95,7 @@
         android:orientation="horizontal">
 
         <Spinner
-            android:id="@+id/spinner"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </TableRow>
@@ -112,6 +107,7 @@
 
         <Button
 
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -123,6 +119,7 @@
 
         <Button
 
+            android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"

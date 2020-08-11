@@ -1,5 +1,6 @@
 package uk.ac.tees.honeycomb.velocity.fragments;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,10 +33,14 @@ public class QRLibraryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_qrlibrary, container,false);
 
 
-
        behaviour = new QRScanner(view);
 
         return view;
+    }
+
+    public Context getContext()
+    {
+        return getActivity();
     }
 
 }
