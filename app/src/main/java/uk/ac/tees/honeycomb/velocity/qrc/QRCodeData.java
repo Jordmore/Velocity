@@ -2,14 +2,21 @@ package uk.ac.tees.honeycomb.velocity.qrc;
 
 import android.graphics.Bitmap;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public  class QRCodeData {
 
 
    private String name;
-   private Date start;
-    private Date expire;
+
+
+   private LocalDateTime start;
+
+
+    private LocalDateTime expire;
+
+
    private Bitmap image;
    private String rawjson;
     private static QRCodeData qr = new QRCodeData( );
@@ -36,20 +43,20 @@ public static QRCodeData instance()
 
     public void setRawJson(String raw){rawjson = raw;}
 
-    public void setStart(Date date)
+    public void setStart(LocalDateTime date)
     {
         start = date;
     }
 
-    public void setExpire(Date date) {expire = date; }
+    public void setExpire(LocalDateTime date) {expire = date; }
 
     public void setImage(Bitmap image) {this.image = image;}
 
     public String getName() { return name; }
 
-    public Date getStart() { return start; }
+    public LocalDateTime getStart() { return start; }
 
-    public Date getExpire() { return expire;}
+    public LocalDateTime getExpire() { return expire;}
 
     public Bitmap getImage() {return image;}
 
