@@ -12,45 +12,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="146dp"
-            android:layout_marginTop="142dp"
-            android:layout_marginEnd="206dp"
-            android:layout_marginBottom="570dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <Button
             android:id="@+id/Scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="151dp"
-            android:layout_marginTop="437dp"
+            android:layout_marginStart="100dp"
             android:layout_marginEnd="172dp"
             android:layout_marginBottom="85dp"
             android:text="Scan"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/refresh"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="316dp"
-            android:layout_marginEnd="46dp"
-            android:layout_marginBottom="367dp"
-            android:text="Button"
+            android:text="Add QR To List."
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/Scan"
+            app:layout_constraintStart_toStartOf="@+id/Scan"
+            app:layout_constraintTop_toBottomOf="@+id/Scan" />
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="406dp"
+            android:layout_height="588dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="11dp"
+            app:layout_constraintBottom_toTopOf="@+id/Scan"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.037"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="left">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/qrRecyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginTop="162dp"
+                    android:layout_marginEnd="52dp"
+                    android:layout_marginBottom="134dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

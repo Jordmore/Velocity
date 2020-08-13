@@ -13,10 +13,13 @@ import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -26,7 +29,9 @@ import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 import uk.ac.tees.honeycomb.velocity.QRActivity;
 import uk.ac.tees.honeycomb.velocity.R;
+import uk.ac.tees.honeycomb.velocity.qrc.QRCodeAdapter;
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeData;
+import uk.ac.tees.honeycomb.velocity.qrc.QRCodeItem;
 
 
 public class QRScanner extends AppCompatActivity implements Behaviour {
@@ -34,9 +39,10 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
     Context context;
     public static final int REQUEST_CODE = 100;
     private View parentView;
-
+    RecyclerView recyclerView;
     TextView result;
-
+    ArrayList qrCodeAdapterData = new ArrayList<QRCodeItem>();
+    QRCodeAdapter adapter = new QRCodeAdapter(qrCodeAdapterData);
     public QRScanner(View parentView) {
         this.parentView = parentView;
 
@@ -47,9 +53,19 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
 
 
     private void createListeners(View view) {
+
+
+        qrCodeAdapterData.add(new QRCodeItem("Test","01/02/2000","14/08/2020",Bitmap.createBitmap(150, 150, Bitmap.Config.ARGB_8888)));
+
         Button openQR = parentView.findViewById(R.id.Scan);
         Button refresh = parentView.findViewById(R.id.refresh);
-        result = parentView.findViewById(R.id.textView4);
+
+        recyclerView = parentView.findViewById(R.id.qrRecyclerView);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
         openQR.setOnClickListener((view1) -> open(view1));
 
         refresh.setOnClickListener((view1) -> qrDetailsPopUp(view1));
@@ -98,8 +114,7 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
             @Override
             public void onClick(View v) {
 boolean validation = false;
-                Date start = new Date();
-                Date end = new Date();
+
 
                 if (inputqrName.getText().toString().trim() == null) {
                     inputqrName.setText("");
@@ -130,10 +145,10 @@ else if(checkdateisvalid(inputEndDate.getText().toString()) == true )
 }
 else
 {
-    try
-    {
-        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
-df.setTimeZone(TimeZone.getTimeZone("GMT"));
+  //  try
+  //  {
+       // SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
+//df.setTimeZone(TimeZone.getTimeZone("GMT"));
         StringBuffer startSB = new StringBuffer(inputStartDate.getText().toString());
         StringBuffer endSB = new StringBuffer(inputEndDate.getText().toString());
         if(!startSB.toString().contains("/") ||!endSB.toString().contains("/") )
@@ -144,16 +159,18 @@ df.setTimeZone(TimeZone.getTimeZone("GMT"));
                     endSB.insert(2,"/");
             endSB.insert(5,"/");
 
-String temp = df.format(startSB.toString());
-            start = df.parse(temp);
-temp  = df.format(endSB.toString());
-            end = df.parse(temp);
+//String temp = df.format(startSB.toString());
+          //  start = df.parse(temp);
+//temp  = df.format(endSB.toString());
+       //     end = df.parse(temp);
+
         }
 
 
-
+qr.setStart(startSB.toString());
+    qr.setExpire(endSB.toString());
     }
-    catch(ParseException e)
+   /* catch(ParseException e)
     {
         e.printStackTrace();
         inputStartDate.setHint("Something went wrong!\n Please try again!");
@@ -162,10 +179,10 @@ temp  = df.format(endSB.toString());
         inputEndDate.setHintTextColor(Color.RED);
 
 validation = true;
-    }
+    }*/
 
 
-}
+
 
 if(validation == false) {
     qr.setImage(QRImage);
@@ -176,8 +193,14 @@ if(validation == false) {
 
     dialog.dismiss();
 
-    result.setText(qr.getName() + " Start: " +qr.getStart() + " End: " + qr.getExpire()
-    + " RAW: " + qr.getRawjson());
+
+
+   qrCodeAdapterData.add(new QRCodeItem(qr.getName(),qr.getStart(),qr.getExpire(),qr.getImage()));
+
+    adapter.notifyDataSetChanged();
+
+
+
 }
 
 
