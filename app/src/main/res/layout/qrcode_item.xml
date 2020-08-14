@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/qrCodeImage"
-        android:layout_width="124dp"
-        android:layout_height="89dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
@@ -26,14 +26,14 @@
             <TextView
                 android:id="@+id/name_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Name Of QR Code:"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:text="-" />
         </LinearLayout>
@@ -71,14 +71,14 @@
             <TextView
                 android:id="@+id/expiry_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Expiry Date:"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/expiry"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:text="-" />
         </LinearLayout>

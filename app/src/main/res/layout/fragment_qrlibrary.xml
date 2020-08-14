@@ -16,56 +16,58 @@
             android:id="@+id/Scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
             android:layout_marginEnd="172dp"
-            android:layout_marginBottom="85dp"
+            android:layout_marginBottom="48dp"
             android:text="Scan"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.198"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/refresh"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="186dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="87dp"
             android:text="Add QR To List."
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Scan"
-            app:layout_constraintStart_toStartOf="@+id/Scan"
-            app:layout_constraintTop_toBottomOf="@+id/Scan" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Scan"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="406dp"
-            android:layout_height="588dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="33dp"
-            android:layout_marginBottom="11dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/Scan"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.037"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintVertical_bias="0.937">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="left">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/qrRecyclerView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="68dp"
-                    android:layout_marginTop="162dp"
-                    android:layout_marginEnd="52dp"
-                    android:layout_marginBottom="134dp" />
+
+                android:orientation="horizontal">
 
             </LinearLayout>
         </ScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/qrRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
