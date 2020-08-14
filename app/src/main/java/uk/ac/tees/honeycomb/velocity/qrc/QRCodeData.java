@@ -18,6 +18,7 @@ public  class QRCodeData {
 
    private Bitmap image;
    private String rawjson;
+   private boolean populated;
     private static QRCodeData qr = new QRCodeData( );
     private QRCodeData()
     {
@@ -26,6 +27,7 @@ public  class QRCodeData {
         this.expire = null;
         this.image= null;
         this.rawjson = "";
+        this.populated = false;
     }
 
 
@@ -61,4 +63,21 @@ public static QRCodeData instance()
 
     public String getRawjson() {return rawjson;}
 
+    public void discard()
+    {
+        this.name = "CODE_BLANK";
+        this.start = null;
+        this.expire = null;
+        this.image= null;
+        this.rawjson = "";
+        this.populated = false;
+    }
+
+    public boolean isPopulated() {
+        return populated;
+    }
+
+    public void setPopulated(boolean populated) {
+        this.populated = populated;
+    }
 }

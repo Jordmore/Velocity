@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/refresh"
+            android:id="@+id/addqr"
             android:layout_width="186dp"
             android:layout_height="45dp"
             android:layout_marginTop="11dp"
@@ -39,7 +39,7 @@
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="wrap_content"
+            android:layout_width="357dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/Scan"
             app:layout_constraintEnd_toEndOf="parent"

@@ -169,7 +169,7 @@ public class QRActivity extends AppCompatActivity implements Serializable {
 QRCodeData qr =QRCodeData.instance();;
 
 qr.setRawJson(barcodes.valueAt(0).rawValue);
-
+qr.setPopulated(true);
 
                     finish();
 
