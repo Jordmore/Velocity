@@ -55,7 +55,7 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
     private void createListeners(View view) {
 
 
-        qrCodeAdapterData.add(new QRCodeItem("Test","01/02/2000","14/08/2020",Bitmap.createBitmap(150, 150, Bitmap.Config.ARGB_8888)));
+
 
         Button openQR = parentView.findViewById(R.id.Scan);
         Button refresh = parentView.findViewById(R.id.refresh);
@@ -131,13 +131,13 @@ boolean validation = false;
                     validation = true;
                 }
 
-if(checkdateisvalid(inputStartDate.getText().toString()) == true )
+if(checkdateisvalid(inputStartDate.getText().toString()) == false )
 {
    inputStartDate.setHint("@string/incorrectDate");
    inputStartDate.setHintTextColor(Color.RED);
     validation = true;
 }
-else if(checkdateisvalid(inputEndDate.getText().toString()) == true )
+else if(checkdateisvalid(inputEndDate.getText().toString()) == false )
 {
     inputEndDate.setHint("@string/incorrectDate");
     inputEndDate.setHintTextColor(Color.RED);
@@ -215,18 +215,22 @@ if(validation == false) {
 
 
     private boolean checkdateisvalid(String date) {
-        if (date.matches("[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}")) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            sdf.setLenient(false);
-            try {
-                Date d1 = sdf.parse(date);
-                return true;
-            } catch (ParseException e) {
+        if (date.length() != 8) {
+            return false;
+        } else {
+            if (date.matches("[0-9]{2}[/]{1}[0-9]{2}[/]{1}[0-9]{4}")) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                sdf.setLenient(false);
+                try {
+                    Date d1 = sdf.parse(date);
+                    return true;
+                } catch (ParseException e) {
+                    return false;
+                }
+            } else {
+
                 return false;
             }
-        } else {
-
-            return false;
         }
     }
 }
