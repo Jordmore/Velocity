@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,6 +23,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +41,7 @@ import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 import uk.ac.tees.honeycomb.velocity.QRActivity;
 import uk.ac.tees.honeycomb.velocity.R;
+
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeAdapter;
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeData;
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeItem;
@@ -49,8 +57,11 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
     ArrayList qrCodeAdapterData = new ArrayList<QRCodeItem>();
     QRCodeAdapter adapter = new QRCodeAdapter(qrCodeAdapterData);
 
+
+    String NOTIFICATION_CHANNEL_ID = "velocity_01";
     public QRScanner(View parentView) {
         this.parentView = parentView;
+
 
 
         createListeners(parentView);
@@ -60,6 +71,13 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
 
     private void createListeners(View view) {
         RecyclerView recyclerView;
+
+if(readJson() != null)
+{
+    qrCodeAdapterData =readJson();
+}
+
+
 
         Button openQR = parentView.findViewById(R.id.Scan);
         Button addToList = parentView.findViewById(R.id.addqr);
@@ -90,8 +108,7 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
 
         if(!qr.isPopulated())
         {
-           notifacationBuilder("Adding QR Code Failed","You must scan a QR Code before\n" +
-                   "trying too add one to the library!\n Try Again!");
+            Toast.makeText(parentView.getContext(), "QR Has Not Been Scanned!", Toast.LENGTH_LONG).show();
             return;
         }
         final Dialog dialog = new Dialog(view1.getContext());
@@ -205,8 +222,9 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
 
                     qrCodeAdapterData.add(new QRCodeItem(qr.getName(), qr.getStart(), qr.getExpire(), qr.getImage()));
 
-                    adapter.notifyDataSetChanged();
 
+                    adapter.notifyDataSetChanged();
+writeJson(qrCodeAdapterData);
                     qr.discard();
 
 
@@ -244,35 +262,43 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
         return false;
     }
 
-
-public void notifacationBuilder(String subtitle,String message)
+public void writeJson(ArrayList qr1)
 {
-    String NOTIFICATION_CHANNEL_ID = "velocity_01"; //QR Code has not been scanned
-    NotificationManager notificationManager = (NotificationManager)       getSystemService(Context.NOTIFICATION_SERVICE);
+    FileOutputStream fos = null;
+    try {
+        fos = context.openFileOutput("qrlist.txt", Context.MODE_PRIVATE);
+        ObjectOutputStream os = new ObjectOutputStream(fos);
+        os.writeObject(qr1);
+        os.close();
+        fos.close();
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "QR Code Null", NotificationManager.IMPORTANCE_MAX);
-        // Configure the notification channel.
-        notificationChannel.setDescription("QR Code Related Notifacions");
-        notificationChannel.enableLights(true);
-        notificationChannel.setLightColor(Color.RED);
-        notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
-        notificationChannel.enableVibration(true);
-        notificationManager.createNotificationChannel(notificationChannel);
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
     }
 
-    NotificationCompat.Builder notifacationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.logo_final)
-            .setContentTitle("@String/id/app_name")
-            .setWhen(System.currentTimeMillis())
-            .setContentText(subtitle)
-            .setAutoCancel(true)
-            .setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(message))
-            .setPriority(NotificationCompat.PRIORITY_HIGH);
-    notificationManager.notify(1, notifacationBuilder.build());
-    //send notifacation if QR Code hasnt been scanned.
 }
+
+public ArrayList readJson()
+{
+
+
+    try {
+        FileInputStream fis = this.openFileInput("qrlist.txt");
+        ObjectInputStream is = new ObjectInputStream(fis);
+        ArrayList lis = (ArrayList) is.readObject();
+        is.close();
+        fis.close();
+        return lis;
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+return null;
+}
+
 }
 
 
