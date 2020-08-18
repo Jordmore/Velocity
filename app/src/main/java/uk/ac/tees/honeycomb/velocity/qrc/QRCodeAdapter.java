@@ -1,5 +1,6 @@
 package uk.ac.tees.honeycomb.velocity.qrc;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
 import uk.ac.tees.honeycomb.velocity.R;
 
 public class QRCodeAdapter extends RecyclerView.Adapter<QRCodeAdapter.QRCodeViewHolder> {
@@ -36,17 +39,12 @@ public QRCodeAdapter(ArrayList<QRCodeItem> qrCodeItems)
     @Override
     public void onBindViewHolder(@NonNull QRCodeViewHolder holder, int position) {
         final QRCodeItem qrListData = qrCodeItems.get(position);
-if(qrCodeItems != null)
-{
+
     holder.name.setText(qrListData.getName());
     holder.start.setText(qrListData.getStart());
     holder.expiry.setText(qrListData.getExpire());
-    holder.qrCodeImage.setImageBitmap(qrListData.getImage());
-}
-else
-{
+    holder.qrCodeImage.setImageBitmap(createImage(qrListData.getRawjson()));
 
-}
 
 
     }
@@ -79,6 +77,11 @@ else
 
 
 
+private Bitmap createImage(String compressedBit)
+{
+    QRGEncoder qrgEncoder = new QRGEncoder( compressedBit, null, QRGContents.Type.TEXT, 150);
 
+    return qrgEncoder.getBitmap();
+}
 
 }

@@ -2,7 +2,7 @@ package uk.ac.tees.honeycomb.velocity.qrc;
 
 import android.graphics.Bitmap;
 
-import org.json.JSONObject;
+
 
 public class QRCodeItem {
 
@@ -17,7 +17,9 @@ public class QRCodeItem {
 
 
         private Bitmap image;
-        private JSONObject rawjson;
+        private String encoded;
+
+        private String rawjson;
 
         public QRCodeItem()
         {
@@ -29,25 +31,26 @@ public class QRCodeItem {
         }
 
 
-        public QRCodeItem(String name, String start, String expiry, Bitmap image)
+        public QRCodeItem(String name, String start, String expiry,String raw)
         {
             this.name = name;
             this.start = start;
             this.expire = expiry;
-            this.image= image;
+         this.rawjson = raw;
+
         }
 
 
 
         public void setName(String sname) { name = sname; }
 
-        public void setRawJson(JSONObject raw){rawjson = raw;}
+        public void setRawJson(String raw){rawjson = raw;}
 
         public void setStart(String date) { start = date; }
 
         public void setExpire(String date) {expire = date; }
 
-        public void setImage(Bitmap image) {this.image = image;}
+
 
         public void setPosition(String position) { this.position = position; }
 
@@ -57,12 +60,19 @@ public class QRCodeItem {
 
         public String getExpire() { return expire;}
 
-        public Bitmap getImage() {return image;}
 
-        public JSONObject  getRawjson() {return rawjson;}
+
+        public String  getRawjson() {return rawjson;}
 
         public String getPosition() { return position; }
 
 
+    public String getEncoded() {
+        return encoded;
+    }
+
+    public void setEncoded(String encoded) {
+        this.encoded = encoded;
+    }
 }
 
