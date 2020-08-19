@@ -53,24 +53,32 @@ import uk.ac.tees.honeycomb.velocity.R;
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeAdapter;
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeData;
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeItem;
+import uk.ac.tees.honeycomb.velocity.readandwrite.SRQRCodes;
 
 
+/**
+ * This class displays QR Data, Acts as a hub from which you can Scan QR Codes or display them.
+ */
 public class QRScanner extends AppCompatActivity implements Behaviour {
-    public static final int PERMISSION_REQUEST = 200;
-    Context context;
     public static final int REQUEST_CODE = 100;
+    public static final int PERMISSION_REQUEST = 200;
+    //QR Code Scanner Acivity requirements.
+
+    Context context;
     private View parentView;
 
-    TextView result;
+   //QRCodeAdapter variables for displaying QR Codes and "creating QR Codes"
     ArrayList qrCodeAdapterData = new ArrayList<QRCodeItem>();
-    QRCodeAdapter adapter = new QRCodeAdapter(qrCodeAdapterData);
+    QRCodeAdapter adapter;
+
+    SRQRCodes SR = new SRQRCodes();
 
 
-    String NOTIFICATION_CHANNEL_ID = "velocity_01";
     public QRScanner(View parentView) {
         this.parentView = parentView;
 
 context = parentView.getContext();
+adapter = new QRCodeAdapter(qrCodeAdapterData,context);
         createListeners(parentView);
 
     }
@@ -90,11 +98,11 @@ context = parentView.getContext();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        if(readJson() != null) {
+        if(SR.readJson(context) != null) {
             ArrayList li = new ArrayList<QRCodeItem>();
 
 
-           li = readJson();
+           li = SR.readJson(context);
 
           qrCodeAdapterData.addAll(li);
             adapter.notifyDataSetChanged();
@@ -129,6 +137,7 @@ context = parentView.getContext();
         Button save = (Button) dialog.findViewById(R.id.save);
 
         ImageView qrImage = (ImageView) dialog.findViewById(R.id.qrimage);
+
 qrImage.setImageBitmap(createImage(qr.getRawjson()));
         TextView inputqrName = (TextView) dialog.findViewById(R.id.inputQRName);
         TextView inputStartDate = (TextView) dialog.findViewById(R.id.inputStartDate);
@@ -172,13 +181,13 @@ qrImage.setImageBitmap(createImage(qr.getRawjson()));
                 }
 
                 if (!checkdateisvalid(inputStartDate.getText().toString())) {
-                    inputStartDate.setHint("@string/incorrectDate");
+                    inputStartDate.setHint(R.string.incorrectDate);
                     inputStartDate.setHintTextColor(Color.RED);
                     validation = true;
                 }
 
                 if (!checkdateisvalid(inputEndDate.getText().toString())) {
-                    inputEndDate.setHint("@string/incorrectDate");
+                    inputEndDate.setHint(R.string.incorrectDate);
                     inputEndDate.setHintTextColor(Color.RED);
                     validation = true;
                 }
@@ -224,8 +233,7 @@ qrImage.setImageBitmap(createImage(qr.getRawjson()));
 
                     qr.setName(inputqrName.getText().toString());
 
-                    //  qr.setStart(start);
-                    //  qr.setExpire(end);
+
 
                     dialog.dismiss();
 
@@ -234,7 +242,8 @@ qrImage.setImageBitmap(createImage(qr.getRawjson()));
 
 
                     adapter.notifyDataSetChanged();
-                    writeJson(qrCodeAdapterData);
+                    SRQRCodes SR = new SRQRCodes();
+                    SR.writeJson(qrCodeAdapterData,context);
                     qr.discard();
 
 
@@ -271,45 +280,20 @@ qrImage.setImageBitmap(createImage(qr.getRawjson()));
         }
         return false;
     }
+
+
     private Bitmap createImage(String compressedBit)
     {
         QRGEncoder qrgEncoder = new QRGEncoder( compressedBit, null, QRGContents.Type.TEXT, 150);
 
         return qrgEncoder.getBitmap();
     }
-public void writeJson(ArrayList qr1)
-{
 
-    SharedPreferences sharedPreferences = context.getSharedPreferences("QRLibrary", 0);
-    SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
-    final Gson gson = new Gson();
-
-    String serializedObject = gson.toJson(qr1);
-
-    sharedPreferencesEditor.putString("serial", serializedObject);
-    sharedPreferencesEditor.apply();
-    sharedPreferencesEditor.commit();
 
 
 }
 
-public ArrayList readJson()
-{
 
-
-    SharedPreferences sharedPreferences = context.getSharedPreferences("QRLibrary", 0);
-    if (sharedPreferences.contains("serial")) {
-        Type type = new TypeToken<ArrayList<QRCodeItem>>(){}.getType();
-        //Type type = new TypeToken<List<Student>>(){}.getType();
-        final Gson gson = new Gson();
-
-
-       return gson.fromJson(sharedPreferences.getString("serial", ""), type);
-    }
-    return null;
-}
-
-}
 
 
 
