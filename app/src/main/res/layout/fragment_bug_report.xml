@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/conlayout1"
@@ -8,87 +8,79 @@
     android:orientation="vertical"
     tools:context=".fragments.BugReportFragment">
 
-    <TextView
-        android:id="@+id/nameView"
-        android:layout_width="214dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="196dp"
-        android:text="Name:"
-        app:layout_constraintBottom_toTopOf="@+id/inputBugReortName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/inputBugReortName"
-        android:layout_width="214dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="196dp"
-        android:layout_marginBottom="45dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/emailView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameView" />
+        <TextView
+            android:id="@+id/nameView"
+            android:layout_width="214dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="196dp"
+            android:text="Name:"
+            app:layout_constraintBottom_toTopOf="@+id/inputBugReportName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/emailView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="373dp"
-        android:layout_marginBottom="1dp"
-        android:text="Email:"
-        app:layout_constraintBottom_toTopOf="@+id/inputBugReortEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputBugReortName" />
+        <EditText
+            android:id="@+id/inputBugReportName"
+            android:layout_width="214dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="196dp"
+            android:layout_marginBottom="45dp"
+            android:ems="10"
+            android:hint="Your Name"
+            android:inputType="textPersonName"
 
-    <EditText
-        android:id="@+id/inputBugReortEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="198dp"
-        android:layout_marginBottom="46dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="Email"
-        app:layout_constraintBottom_toTopOf="@+id/emailView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailView" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameView" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/reportView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="368dp"
-        android:text="Report: "
-        app:layout_constraintBottom_toTopOf="@+id/editText6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputBugReortEmail" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="411dp"
-        android:layout_height="138dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="312dp"
-        android:ems="10"
-        android:inputType="textLongMessage"
-        android:singleLine="false"
-        android:text="Bug Reort:"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputBugReortEmail" />
+        <TextView
+            android:id="@+id/reportView"
+            android:layout_width="269dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="368dp"
+            android:text="Report: " />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/inputBugReort"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="312dp"
+            android:ems="10"
+            android:hint="Bug Report"
+            android:inputType="textLongMessage"
+            android:singleLine="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/sendbug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send Email" />
+    </LinearLayout>
+
+</LinearLayout>

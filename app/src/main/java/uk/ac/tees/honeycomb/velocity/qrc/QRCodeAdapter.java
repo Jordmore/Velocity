@@ -1,7 +1,9 @@
 package uk.ac.tees.honeycomb.velocity.qrc;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,8 +62,18 @@ public class QRCodeAdapter extends RecyclerView.Adapter<QRCodeAdapter.QRCodeView
         holder.name.setText(qrListData.getName());
         holder.start.setText(qrListData.getStart());
         holder.expiry.setText(qrListData.getExpire());
-        holder.qrCodeImage.setImageBitmap(createImage(qrListData.getRawjson()));
+        holder.qrCodeImage.setImageBitmap(createImage(qrListData.getRawjson(),150));
+        holder.qrCodeImage.setOnClickListener(new View.OnClickListener() {
+                                                  @Override
+                                                  public void onClick(View v) {
+                                                      final Dialog dialog = new Dialog(context);
+                                                      dialog.setContentView(R.layout.enlargedqrcode);
+                                                      ImageView enlargedQR = (ImageView) dialog.findViewById(R.id.enlargedQR);
 
+                                                      enlargedQR.setImageBitmap(createImage(qrListData.getRawjson(),500));
+                                                      dialog.show();
+                                                  }
+                                              });
         holder.removeQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,8 +133,8 @@ public class QRCodeAdapter extends RecyclerView.Adapter<QRCodeAdapter.QRCodeView
      * @param raw string value which is the raw scanner output of the scanned QR Code from QRActivity.
      * @return a bitmap created from the raw input of size 150x150.
      */
-    private Bitmap createImage(String raw) {
-        QRGEncoder qrgEncoder = new QRGEncoder(raw, null, QRGContents.Type.TEXT, 150);
+    private Bitmap createImage(String raw,int dimension) {
+        QRGEncoder qrgEncoder = new QRGEncoder(raw, null, QRGContents.Type.TEXT, dimension);
 
         return qrgEncoder.getBitmap();
     }

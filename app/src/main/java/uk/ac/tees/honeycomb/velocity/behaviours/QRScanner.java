@@ -72,6 +72,7 @@ public class QRScanner extends AppCompatActivity implements Behaviour {
     ArrayList qrCodeAdapterData = new ArrayList<QRCodeItem>();
     QRCodeAdapter adapter;
 
+    //For reading the Stored QR Codes to then populate the recycler view
     SRQRCodes SR = new SRQRCodes();
 
 
@@ -84,9 +85,12 @@ adapter = new QRCodeAdapter(qrCodeAdapterData,context);
 
     }
 
-
+    /**
+     * Components and Listeners are initialed and created here
+     * @param view
+     */
     private void createListeners(View view) {
-        RecyclerView recyclerView;
+        RecyclerView qrRecyclerViewDisplay;
 
 
 
@@ -94,11 +98,11 @@ adapter = new QRCodeAdapter(qrCodeAdapterData,context);
         Button openQR = parentView.findViewById(R.id.Scan);
         Button addToList = parentView.findViewById(R.id.addqr);
 
-        recyclerView = parentView.findViewById(R.id.qrRecyclerView);
+        qrRecyclerViewDisplay = parentView.findViewById(R.id.qrRecyclerView);
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+        qrRecyclerViewDisplay.setHasFixedSize(true);
+        qrRecyclerViewDisplay.setLayoutManager(new LinearLayoutManager(this));
+        qrRecyclerViewDisplay.setAdapter(adapter);
         if(SR.readJson(context) != null) {
             ArrayList li = new ArrayList<QRCodeItem>();
 
@@ -108,13 +112,16 @@ adapter = new QRCodeAdapter(qrCodeAdapterData,context);
           qrCodeAdapterData.addAll(li);
             adapter.notifyDataSetChanged();
         }
-        openQR.setOnClickListener((view1) -> open(view1));
+        openQR.setOnClickListener((view1) -> openCameraSource(view1));
 
         addToList.setOnClickListener((view1) -> qrDetailsPopUp(view1));
     }
 
-
-    private void open(View view) {
+    /**
+     * Opens the camera for scanning QR Codes by startng activity QRActivity.
+     * @param view passed to get context.
+     */
+    private void openCameraSource(View view) {
 
         Intent intent = new Intent(view.getContext(), QRActivity.class);
         view.getContext().startActivity(intent);
@@ -122,6 +129,11 @@ adapter = new QRCodeAdapter(qrCodeAdapterData,context);
 
     }
 
+    /**
+     * When a QR Code has been scanned and passed into QRCodeData we recieve their raw json.
+     * This means we can generate the same QR Code and display it.
+     * @param view1
+     */
     public void qrDetailsPopUp(View view1) {
 
         QRCodeData qr = QRCodeData.instance();
@@ -143,6 +155,7 @@ qrImage.setImageBitmap(createImage(qr.getRawjson()));
         TextView inputqrName = (TextView) dialog.findViewById(R.id.inputQRName);
         TextView inputStartDate = (TextView) dialog.findViewById(R.id.inputStartDate);
         TextView inputEndDate = (TextView) dialog.findViewById(R.id.inputEndDate);
+
         // if button is clicked, close the custom dialog
 
 
@@ -167,16 +180,17 @@ qrImage.setImageBitmap(createImage(qr.getRawjson()));
 
 
                 if (inputqrName.getText().toString().trim() == "") {
-                    inputqrName.setText("");
+                    inputqrName.setTextColor(Color.RED);
                     inputqrName.setHintTextColor(Color.RED);
                     validation = true;
                 } else if (inputStartDate.getText().toString().trim() == "") {
-                    inputStartDate.setText("");
+                    inputStartDate.setTextColor(Color.RED);
                     inputStartDate.setHintTextColor(Color.RED);
                     validation = true;
 
+
                 } else if (inputEndDate.getText().toString().trim() == "") {
-                    inputEndDate.setText("");
+                    inputEndDate.setTextColor(Color.RED);
                     inputEndDate.setHintTextColor(Color.RED);
                     validation = true;
                 }
