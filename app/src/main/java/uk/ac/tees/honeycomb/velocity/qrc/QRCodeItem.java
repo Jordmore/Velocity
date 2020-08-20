@@ -3,22 +3,45 @@ package uk.ac.tees.honeycomb.velocity.qrc;
 import android.graphics.Bitmap;
 
 
-
+/**
+ *  @author Jordon
+ * A class for populating a QR Code with data about said qr code.
+ * We do not extract infomation from the raw input. we use that raw input to generate the image.
+ */
 public class QRCodeItem {
 
-        private String name;
+
+    /**
+     * The given name for a QR Code. Holds no greater purpose other than to be displayed.
+     */
+    private String name;
 
 
-        private String start;
+    /**
+     * When the user said what date the QR Code was created.
+     * Not when the ticket (actually) was created.
+     */
+    private String start;
 
         private String position;
 
-        private String expire;
+    /**
+     * When the user said what date the QR Code will expire.
+     * Not when the ticket (actually) expires.
+     */
+    private String expire;
 
 
-        private Bitmap image;
-        private String encoded;
+    /**
+     * Image of the QR Code
+     */
+    private Bitmap image;
 
+
+    /**
+     * RawJson used for generating a bitmap.
+     * And in future could be used to extract data about the ticket.
+     */
         private String rawjson;
 
         public QRCodeItem()
@@ -36,23 +59,17 @@ public class QRCodeItem {
             this.name = name;
             this.start = start;
             this.expire = expiry;
-         this.rawjson = raw;
+            this.rawjson = raw;
 
         }
 
 
-
+    /**
+     *
+     * @param sname input name to set the class name.
+     */
         public void setName(String sname) { name = sname; }
 
-        public void setRawJson(String raw){rawjson = raw;}
-
-        public void setStart(String date) { start = date; }
-
-        public void setExpire(String date) {expire = date; }
-
-
-
-        public void setPosition(String position) { this.position = position; }
 
         public String getName() { return name; }
 
@@ -64,15 +81,10 @@ public class QRCodeItem {
 
         public String  getRawjson() {return rawjson;}
 
-        public String getPosition() { return position; }
 
 
-    public String getEncoded() {
-        return encoded;
-    }
 
-    public void setEncoded(String encoded) {
-        this.encoded = encoded;
-    }
+
+
 }
 

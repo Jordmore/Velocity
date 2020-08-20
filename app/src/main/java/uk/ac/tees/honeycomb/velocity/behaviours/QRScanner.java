@@ -58,6 +58,7 @@ import uk.ac.tees.honeycomb.velocity.readandwrite.SRQRCodes;
 
 /**
  * This class displays QR Data, Acts as a hub from which you can Scan QR Codes or display them.
+ * @author Jordon
  */
 public class QRScanner extends AppCompatActivity implements Behaviour {
     public static final int REQUEST_CODE = 100;

@@ -24,14 +24,27 @@ import uk.ac.tees.honeycomb.velocity.readandwrite.SRQRCodes;
 
 public class QRCodeAdapter extends RecyclerView.Adapter<QRCodeAdapter.QRCodeViewHolder> {
 
+    /**
+     * qrCodeItems an ArrayList of object QRCodeItem which is a representation of a QR Ticket
+     */
     private ArrayList<QRCodeItem> qrCodeItems;
-private Context context;
-public QRCodeAdapter(ArrayList<QRCodeItem> qrCodeItems, Context context)
-{
-this.context = context;
-    this.qrCodeItems = qrCodeItems;
-}
+    private Context context;
 
+    /**
+     * @param qrCodeItems ArrayList passed through the QRLibrary to QRCodeAdapter
+     * @param context
+     */
+    public QRCodeAdapter(ArrayList<QRCodeItem> qrCodeItems, Context context) {
+        this.context = context;
+        this.qrCodeItems = qrCodeItems;
+    }
+
+    /**
+     * A method to create views within the recycler view, once created data
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public QRCodeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,22 +57,21 @@ this.context = context;
     public void onBindViewHolder(@NonNull QRCodeViewHolder holder, int position) {
         final QRCodeItem qrListData = qrCodeItems.get(position);
 
-    holder.name.setText(qrListData.getName());
-    holder.start.setText(qrListData.getStart());
-    holder.expiry.setText(qrListData.getExpire());
-    holder.qrCodeImage.setImageBitmap(createImage(qrListData.getRawjson()));
+        holder.name.setText(qrListData.getName());
+        holder.start.setText(qrListData.getStart());
+        holder.expiry.setText(qrListData.getExpire());
+        holder.qrCodeImage.setImageBitmap(createImage(qrListData.getRawjson()));
 
-holder.removeQR.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        qrCodeItems.remove(qrListData);
-        notifyDataSetChanged();
-        SRQRCodes SR = new SRQRCodes();
-        SR.writeJson(qrCodeItems,context);
-        Toast.makeText(context, "QR Has Been Removed Forever!", Toast.LENGTH_LONG).show();
-    }
-});
-
+        holder.removeQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qrCodeItems.remove(qrListData);
+                notifyDataSetChanged();
+                SRQRCodes SR = new SRQRCodes();
+                SR.writeJson(qrCodeItems, context);
+                Toast.makeText(context, "QR Has Been Removed Forever!", Toast.LENGTH_LONG).show();
+            }
+        });
 
 
     }
@@ -69,10 +81,20 @@ holder.removeQR.setOnClickListener(new View.OnClickListener() {
         return qrCodeItems.size();
     }
 
+    /**
+     * A method for removing objects from the ArrayList
+     * @param object ArrayList object of type QRCodeItems to be removed from adapter ArrayList/
+     */
     public void removeItem(@NonNull Object object) {
-       qrCodeItems.remove(object);
+        qrCodeItems.remove(object);
         notifyDataSetChanged();
     }
+
+    /**
+     * Defining of the recycler view item.
+     * With initialisation of the items components to be used in populating the fields with data
+     * provided by the user when accessing the qr popup details dialog feature.
+     */
     public static class QRCodeViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView name;
@@ -80,32 +102,29 @@ holder.removeQR.setOnClickListener(new View.OnClickListener() {
         private final TextView expiry;
         private final ImageView qrCodeImage;
         private final ImageButton removeQR;
+
         public QRCodeViewHolder(View itemView) {
 
             super(itemView);
             name = itemView.findViewById(R.id.name);
             start = itemView.findViewById(R.id.start);
             expiry = itemView.findViewById(R.id.expiry);
-            qrCodeImage= itemView.findViewById(R.id.qrCodeImage);
+            qrCodeImage = itemView.findViewById(R.id.qrCodeImage);
             removeQR = itemView.findViewById(R.id.removeQR);
 
         }
     }
 
 
+    /**
+     *
+     * @param raw string value which is the raw scanner output of the scanned QR Code from QRActivity.
+     * @return a bitmap created from the raw input of size 150x150.
+     */
+    private Bitmap createImage(String raw) {
+        QRGEncoder qrgEncoder = new QRGEncoder(raw, null, QRGContents.Type.TEXT, 150);
 
-
-private boolean remove(int position)
-{
-qrCodeItems.remove(position);
-    return false;
-}
-
-private Bitmap createImage(String compressedBit)
-{
-    QRGEncoder qrgEncoder = new QRGEncoder( compressedBit, null, QRGContents.Type.TEXT, 150);
-
-    return qrgEncoder.getBitmap();
-}
+        return qrgEncoder.getBitmap();
+    }
 
 }

@@ -1,7 +1,6 @@
 package uk.ac.tees.honeycomb.velocity;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,10 +19,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 
+import uk.ac.tees.honeycomb.velocity.fragments.BugReportFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.JourneyPlannerFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.MainFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.MapsFragment;
-import uk.ac.tees.honeycomb.velocity.fragments.QRCameraFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.QRLibraryFragment;
 import uk.ac.tees.honeycomb.velocity.fragments.StopTimetableFragment;
 
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity  {
     private final MainFragment main = new MainFragment();
     private final MapsFragment maps = new MapsFragment();
     private final QRLibraryFragment qr = new QRLibraryFragment();
-    private final QRCameraFragment qrcam = new QRCameraFragment();
+    private final BugReportFragment bugreport = new BugReportFragment();
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -110,8 +109,8 @@ public class MainActivity extends AppCompatActivity  {
                     load(qr);
                     drawer.close();
                     return true;
-                case R.id.nav_qrcam:
-                    load(qrcam);
+                case R.id.nav_bugreport:
+                    load(bugreport);
                     drawer.close();
                     return true;
                 default:

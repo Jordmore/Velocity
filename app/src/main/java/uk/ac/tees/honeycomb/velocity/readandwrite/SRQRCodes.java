@@ -11,10 +11,12 @@ import java.util.ArrayList;
 
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeItem;
 
+/**
+ *  @author Jordon
+ */
 public class SRQRCodes {
 
-    public void writeJson(ArrayList qr1, Context context)
-    {
+    public void writeJson(ArrayList qr1, Context context) {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("QRLibrary", 0);
         SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
@@ -29,13 +31,13 @@ public class SRQRCodes {
 
     }
 
-    public ArrayList readJson(Context context)
-    {
+    public ArrayList readJson(Context context) {
 
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("QRLibrary", 0);
         if (sharedPreferences.contains("serial")) {
-            Type type = new TypeToken<ArrayList<QRCodeItem>>(){}.getType();
+            Type type = new TypeToken<ArrayList<QRCodeItem>>() {
+            }.getType();
             //Type type = new TypeToken<List<Student>>(){}.getType();
             final Gson gson = new Gson();
 

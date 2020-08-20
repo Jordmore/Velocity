@@ -1,6 +1,6 @@
 package uk.ac.tees.honeycomb.velocity.qrc;
 
-import android.graphics.Bitmap;
+
 
 
 /**
@@ -11,7 +11,7 @@ public  class QRCodeData {
 
 
     /**
-     * The given name for a QR Code.
+     * The given name for a QR Code. Holds no greater purpose other than to be displayed.
      */
    private String name;
 

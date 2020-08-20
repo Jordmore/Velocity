@@ -25,8 +25,8 @@
             android:id="@+id/action_fragment_main_to_qrlibraryrFragment"
             app:destination="@id/qrlibraryrFragment" />
         <action
-            android:id="@+id/action_fragment_main_to_QRCameraFragment"
-            app:destination="@id/QRCameraFragment" />
+            android:id="@+id/action_fragment_main_to_bugReportFragment"
+            app:destination="@id/bugReportFragment" />
     </fragment>
     <fragment
         android:id="@+id/stopTimetableFragment"
@@ -50,7 +50,8 @@
         android:label="QRLibraryrFragment"
         tools:layout="@layout/fragment_qrlibrary" />
     <fragment
-        android:id="@+id/QRCameraFragment"
-        android:name="uk.ac.tees.honeycomb.velocity.fragments.QRCameraFragment"
-        android:label="QRCameraFragment" />
+        android:id="@+id/bugReportFragment"
+        android:name="uk.ac.tees.honeycomb.velocity.fragments.BugReportFragment"
+        android:label="BugReportFragment"
+        tools:layout="@layout/fragment_bug_report" />
 </navigation>

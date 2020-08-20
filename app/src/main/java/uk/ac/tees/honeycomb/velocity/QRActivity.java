@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 
-
 import android.os.Bundle;
 
 import android.util.SparseArray;
@@ -37,19 +36,21 @@ import java.io.Serializable;
 
 import uk.ac.tees.honeycomb.velocity.qrc.QRCodeData;
 
-
+/**
+ *  @author Jordon
+ *  Widely used QR scanner implemnted on an activity which is launched Via the QRLibrary Button
+ *  "Scan QR".
+ */
 public class QRActivity extends AppCompatActivity implements Serializable {
 
 
+    SurfaceView camView;
 
-    SurfaceView cameraView;
-
-    BarcodeDetector barcode;
+    BarcodeDetector qrDetector;
 
     CameraSource cameraSource;
 
     SurfaceHolder holder;
-
 
 
     @Override
@@ -61,28 +62,28 @@ public class QRActivity extends AppCompatActivity implements Serializable {
         setContentView(R.layout.activity_qr);
 
 
-        cameraView = (SurfaceView) findViewById(R.id.cameraView);
+        camView = (SurfaceView) findViewById(R.id.cameraView);
 
-        cameraView.setZOrderMediaOverlay(true);
+        camView.setZOrderMediaOverlay(true);
 
-        holder = cameraView.getHolder();
+        holder = camView.getHolder();
 
-        barcode = new BarcodeDetector.Builder(this)
+        qrDetector = new BarcodeDetector.Builder(this)
 
                 .setBarcodeFormats(Barcode.QR_CODE)
 
                 .build();
 
 
-        if(!barcode.isOperational()){
+        if (!qrDetector.isOperational()) {
 
-            Toast.makeText(getApplicationContext(), "Sorry, Couldn't setup the detector", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Sorry, The Start Up Procedure Wasn't Successful. Try Again", Toast.LENGTH_LONG).show();
 
             this.finish();
 
         }
 
-        cameraSource = new CameraSource.Builder(this, barcode)
+        cameraSource = new CameraSource.Builder(this, qrDetector)
 
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
 
@@ -90,27 +91,25 @@ public class QRActivity extends AppCompatActivity implements Serializable {
 
                 .setAutoFocusEnabled(true)
 
-                .setRequestedPreviewSize(1920,1024)
+                .setRequestedPreviewSize(1920, 1024)
 
                 .build();
 
-        cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
+        camView.getHolder().addCallback(new SurfaceHolder.Callback() {
 
             @Override
 
             public void surfaceCreated(SurfaceHolder holder) {
 
-                try{
+                try {
 
-                    if(ContextCompat.checkSelfPermission(QRActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+                    if (ContextCompat.checkSelfPermission(QRActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
 
-                        cameraSource.start(cameraView.getHolder());
+                        cameraSource.start(camView.getHolder());
 
                     }
 
-                }
-
-                catch (IOException e){
+                } catch (IOException e) {
 
                     e.printStackTrace();
 
@@ -119,15 +118,12 @@ public class QRActivity extends AppCompatActivity implements Serializable {
             }
 
 
-
             @Override
 
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
 
-
             }
-
 
 
             @Override
@@ -135,41 +131,34 @@ public class QRActivity extends AppCompatActivity implements Serializable {
             public void surfaceDestroyed(SurfaceHolder holder) {
 
 
-
             }
 
         });
 
-        barcode.setProcessor(new Detector.Processor<Barcode>() {
+        qrDetector.setProcessor(new Detector.Processor<Barcode>() {
 
             @Override
 
             public void release() {
 
 
-
             }
-
 
 
             @Override
 
             public void receiveDetections(Detector.Detections<Barcode> detections) {
 
-                final SparseArray<Barcode> barcodes =  detections.getDetectedItems();
+                final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
-                if(barcodes.size() > 0){
+                if (barcodes.size() > 0) {
 
-                    Intent intent = new Intent();
 
-                    intent.putExtra("barcode", barcodes.valueAt(0));
+                    QRCodeData qr = QRCodeData.instance();
+                    ;
 
-                    setResult(RESULT_OK, intent);
-
-QRCodeData qr =QRCodeData.instance();;
-
-qr.setRawJson(barcodes.valueAt(0).rawValue);
-qr.setPopulated(true);
+                    qr.setRawJson(barcodes.valueAt(0).rawValue);
+                    qr.setPopulated(true);
 
                     finish();
 
@@ -180,8 +169,6 @@ qr.setPopulated(true);
         });
 
     }
-
-
 
 
 }

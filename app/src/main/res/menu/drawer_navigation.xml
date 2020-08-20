@@ -26,8 +26,8 @@
         android:icon="@drawable/ic_code_scanner_auto_focus_off"
         android:title="QR Library" />
     <item
-        android:id="@+id/nav_qrcam"
-        android:icon="@drawable/ic_code_scanner_auto_focus_off"
-        android:title="QR Camera" />
+        android:id="@+id/nav_bugreport"
+        android:icon="@android:drawable/stat_sys_warning"
+        android:title="Report Bugs" />
 
 </menu>
